@@ -1,0 +1,25 @@
+name: binance_spot
+description: Unofficial Dart wrapper for Binance SPOT API (REST endpoints + Websockets).
+version: 0.0.1
+homepage: https://github.com/AmauryBuguet/binance_spot
+repository: https://github.com/AmauryBuguet/binance_spot
+
+environment:
+  sdk: ">=2.15.0-116.0.dev <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  convert: ^3.0.1
+  crypto: ^3.0.1
+  either_dart: ^0.1.3
+  flutter:
+    sdk: flutter
+  http: ^0.13.4
+  web_socket_channel: ^2.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+
+flutter:
