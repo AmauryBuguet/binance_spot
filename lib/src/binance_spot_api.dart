@@ -47,7 +47,10 @@ class BinanceSpot {
     Map<String, String>? params,
   }) async {
     params ??= {};
-    if (timestampRequired) params['timestamp'] = (DateTime.now().millisecondsSinceEpoch - timestampDifference).toString();
+    if (timestampRequired)
+      params['timestamp'] =
+          (DateTime.now().millisecondsSinceEpoch - timestampDifference)
+              .toString();
 
     if (signatureRequired) {
       if (_apiSecret == null) {
@@ -104,7 +107,8 @@ class BinanceSpot {
 
     if (result is Map) {
       if (result.containsKey("code") && result['code'] != 200) {
-        return Left("Binance API returned error ${result["code"]} : ${result["msg"]}");
+        return Left(
+            "Binance API returned error ${result["code"]} : ${result["msg"]}");
       }
     }
 

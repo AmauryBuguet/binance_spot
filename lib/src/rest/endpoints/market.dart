@@ -35,7 +35,8 @@ extension MarketEndpoints on BinanceSpot {
       path: '$prefix/exchangeInfo',
       type: RequestType.GET,
       params: params,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(ExchangeInfo.fromMap(r.right)));
+    ).then(
+        (r) => r.isLeft ? Left(r.left) : Right(ExchangeInfo.fromMap(r.right)));
   }
 
   /// Order book adjusted based on the limits
@@ -67,7 +68,9 @@ extension MarketEndpoints on BinanceSpot {
       path: 'api/v3/trades',
       type: RequestType.GET,
       params: params,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(List<Trade>.from(r.right.map((e) => Trade.fromMap(e)))));
+    ).then((r) => r.isLeft
+        ? Left(r.left)
+        : Right(List<Trade>.from(r.right.map((e) => Trade.fromMap(e)))));
   }
 
   /// Get older market historical trades.
@@ -86,7 +89,9 @@ extension MarketEndpoints on BinanceSpot {
       type: RequestType.GET,
       keyRequired: true,
       params: params,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(List<Trade>.from(r.right.map((e) => Trade.fromMap(e)))));
+    ).then((r) => r.isLeft
+        ? Left(r.left)
+        : Right(List<Trade>.from(r.right.map((e) => Trade.fromMap(e)))));
   }
 
   /// Get compressed, aggregate market trades.
@@ -109,7 +114,9 @@ extension MarketEndpoints on BinanceSpot {
       path: 'api/v3/aggTrades',
       type: RequestType.GET,
       params: params,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(List<AggTrade>.from(r.right.map((e) => AggTrade.fromMap(e)))));
+    ).then((r) => r.isLeft
+        ? Left(r.left)
+        : Right(List<AggTrade>.from(r.right.map((e) => AggTrade.fromMap(e)))));
   }
 
   /// Kline/candlestick bars for a symbol. Klines are uniquely identified by their open time.
@@ -131,7 +138,9 @@ extension MarketEndpoints on BinanceSpot {
       path: 'api/v3/klines',
       type: RequestType.GET,
       params: params,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(List<Kline>.from(r.right.map((e) => Kline.fromMap(e)))));
+    ).then((r) => r.isLeft
+        ? Left(r.left)
+        : Right(List<Kline>.from(r.right.map((e) => Kline.fromMap(e)))));
   }
 
   /// Current average price for a symbol.
@@ -145,7 +154,8 @@ extension MarketEndpoints on BinanceSpot {
       path: 'api/v3/avgPrice',
       type: RequestType.GET,
       params: params,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(AveragePrice.fromMap(r.right)));
+    ).then(
+        (r) => r.isLeft ? Left(r.left) : Right(AveragePrice.fromMap(r.right)));
   }
 
   /// 24 hour rolling window price change statistics. Careful when accessing this with no symbol.
@@ -157,15 +167,20 @@ extension MarketEndpoints on BinanceSpot {
       path: 'api/v3/ticker/24hr',
       type: RequestType.GET,
       params: params,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(TickerStatistics.fromMap(r.right)));
+    ).then((r) =>
+        r.isLeft ? Left(r.left) : Right(TickerStatistics.fromMap(r.right)));
   }
 
   /// 24 hour rolling window price change statistics for all symbols. Careful when accessing this with no symbol.
-  Future<Either<String, List<TickerStatistics>>> getAll24hrTickerPriceChangeStatistics() {
+  Future<Either<String, List<TickerStatistics>>>
+      getAll24hrTickerPriceChangeStatistics() {
     return sendRequest(
       path: 'api/v3/ticker/24hr',
       type: RequestType.GET,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(List<TickerStatistics>.from(r.right.map((e) => TickerStatistics.fromMap(e)))));
+    ).then((r) => r.isLeft
+        ? Left(r.left)
+        : Right(List<TickerStatistics>.from(
+            r.right.map((e) => TickerStatistics.fromMap(e)))));
   }
 
   /// Latest price for a symbol
@@ -185,7 +200,9 @@ extension MarketEndpoints on BinanceSpot {
     return sendRequest(
       path: 'api/v3/ticker/price',
       type: RequestType.GET,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(List<Ticker>.from(r.right.map((e) => Ticker.fromMap(e)))));
+    ).then((r) => r.isLeft
+        ? Left(r.left)
+        : Right(List<Ticker>.from(r.right.map((e) => Ticker.fromMap(e)))));
   }
 
   /// Best price/qty on the order book for a symbol.
@@ -205,6 +222,9 @@ extension MarketEndpoints on BinanceSpot {
     return sendRequest(
       path: 'api/v3/ticker/bookTicker',
       type: RequestType.GET,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(List<BookTicker>.from(r.right.map((e) => BookTicker.fromMap(e)))));
+    ).then((r) => r.isLeft
+        ? Left(r.left)
+        : Right(
+            List<BookTicker>.from(r.right.map((e) => BookTicker.fromMap(e)))));
   }
 }

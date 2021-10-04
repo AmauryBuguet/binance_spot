@@ -59,7 +59,8 @@ extension TradeEndpoints on BinanceSpot {
     Map<String, String> params = {
       'symbol': symbol,
     };
-    if (origClientOrderId != null) params['origClientOrderId'] = origClientOrderId;
+    if (origClientOrderId != null)
+      params['origClientOrderId'] = origClientOrderId;
     if (orderId != null) params['orderId'] = orderId.toString().toString();
     if (newClientOrderId != null) params['newClientOrderId'] = newClientOrderId;
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
@@ -70,7 +71,8 @@ extension TradeEndpoints on BinanceSpot {
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(CanceledOrder.fromMap(r.right)));
+    ).then(
+        (r) => r.isLeft ? Left(r.left) : Right(CanceledOrder.fromMap(r.right)));
   }
 
   /// Cancels all active orders on a symbol.
@@ -90,7 +92,10 @@ extension TradeEndpoints on BinanceSpot {
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(List<CanceledOrder>.from(r.right.map((e) => CanceledOrder.fromMap(e)))));
+    ).then((r) => r.isLeft
+        ? Left(r.left)
+        : Right(List<CanceledOrder>.from(
+            r.right.map((e) => CanceledOrder.fromMap(e)))));
   }
 
   /// Check an order's status.
@@ -104,7 +109,8 @@ extension TradeEndpoints on BinanceSpot {
       'symbol': symbol,
     };
     if (orderId != null) params['orderId'] = orderId.toString();
-    if (origClientOrderId != null) params['origClientOrderId'] = origClientOrderId;
+    if (origClientOrderId != null)
+      params['origClientOrderId'] = origClientOrderId;
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'api/v3/order',
@@ -113,7 +119,8 @@ extension TradeEndpoints on BinanceSpot {
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(CurrentOrder.fromMap(r.right)));
+    ).then(
+        (r) => r.isLeft ? Left(r.left) : Right(CurrentOrder.fromMap(r.right)));
   }
 
   /// Get all open orders on a symbol.
@@ -132,7 +139,10 @@ extension TradeEndpoints on BinanceSpot {
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(List<CurrentOrder>.from(r.right.map((e) => CurrentOrder.fromMap(e)))));
+    ).then((r) => r.isLeft
+        ? Left(r.left)
+        : Right(List<CurrentOrder>.from(
+            r.right.map((e) => CurrentOrder.fromMap(e)))));
   }
 
   /// Get all account orders; active, canceled, or filled.
@@ -159,7 +169,10 @@ extension TradeEndpoints on BinanceSpot {
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(List<CurrentOrder>.from(r.right.map((e) => CurrentOrder.fromMap(e)))));
+    ).then((r) => r.isLeft
+        ? Left(r.left)
+        : Right(List<CurrentOrder>.from(
+            r.right.map((e) => CurrentOrder.fromMap(e)))));
   }
 
   /// Send in a new OCO
@@ -186,13 +199,17 @@ extension TradeEndpoints on BinanceSpot {
       'price': price,
       'stopPrice': stopPrice,
     };
-    if (listClientOrderId != null) params['listClientOrderId'] = listClientOrderId;
-    if (limitClientOrderId != null) params['limitClientOrderId'] = limitClientOrderId.toString();
+    if (listClientOrderId != null)
+      params['listClientOrderId'] = listClientOrderId;
+    if (limitClientOrderId != null)
+      params['limitClientOrderId'] = limitClientOrderId.toString();
     if (limitIcebergQty != null) params['limitIcebergQty'] = limitIcebergQty;
-    if (stopClientOrderId != null) params['stopClientOrderId'] = stopClientOrderId;
+    if (stopClientOrderId != null)
+      params['stopClientOrderId'] = stopClientOrderId;
     if (stopLimitPrice != null) params['stopLimitPrice'] = stopLimitPrice;
     if (stopIcebergQty != null) params['stopIcebergQty'] = stopIcebergQty;
-    if (stopLimitTimeInForce != null) params['stopLimitTimeInForce'] = stopLimitTimeInForce.toStr();
+    if (stopLimitTimeInForce != null)
+      params['stopLimitTimeInForce'] = stopLimitTimeInForce.toStr();
     if (newOrderRespType != null) params['newOrderRespType'] = newOrderRespType;
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
@@ -217,7 +234,8 @@ extension TradeEndpoints on BinanceSpot {
       'symbol': symbol,
     };
     if (orderListId != null) params['orderListId'] = orderListId.toString();
-    if (listClientOrderId != null) params['listClientOrderId'] = listClientOrderId;
+    if (listClientOrderId != null)
+      params['listClientOrderId'] = listClientOrderId;
     if (newClientOrderId != null) params['newClientOrderId'] = newClientOrderId;
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
@@ -238,7 +256,8 @@ extension TradeEndpoints on BinanceSpot {
   }) {
     Map<String, String> params = {};
     if (orderListId != null) params['orderListId'] = orderListId.toString();
-    if (origClientOrderId != null) params['origClientOrderId'] = origClientOrderId;
+    if (origClientOrderId != null)
+      params['origClientOrderId'] = origClientOrderId;
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'api/v3/orderList',
@@ -271,7 +290,9 @@ extension TradeEndpoints on BinanceSpot {
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(List<OcoOrder>.from(r.right.map((e) => OcoOrder.fromMap(e)))));
+    ).then((r) => r.isLeft
+        ? Left(r.left)
+        : Right(List<OcoOrder>.from(r.right.map((e) => OcoOrder.fromMap(e)))));
   }
 
   /// Query all currently open OCO orders.
@@ -287,7 +308,9 @@ extension TradeEndpoints on BinanceSpot {
       signatureRequired: true,
       timestampRequired: true,
       params: params,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(List<OcoOrder>.from(r.right.map((e) => OcoOrder.fromMap(e)))));
+    ).then((r) => r.isLeft
+        ? Left(r.left)
+        : Right(List<OcoOrder>.from(r.right.map((e) => OcoOrder.fromMap(e)))));
   }
 
   /// Get current account information.
@@ -303,7 +326,8 @@ extension TradeEndpoints on BinanceSpot {
       signatureRequired: true,
       timestampRequired: true,
       params: params,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(AccountInfo.fromMap(r.right)));
+    ).then(
+        (r) => r.isLeft ? Left(r.left) : Right(AccountInfo.fromMap(r.right)));
   }
 
   /// Get trades for a specific account and symbol.
@@ -332,6 +356,9 @@ extension TradeEndpoints on BinanceSpot {
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(List<AccountTrade>.from(r.right.map((e) => AccountTrade.fromMap(e)))));
+    ).then((r) => r.isLeft
+        ? Left(r.left)
+        : Right(List<AccountTrade>.from(
+            r.right.map((e) => AccountTrade.fromMap(e)))));
   }
 }

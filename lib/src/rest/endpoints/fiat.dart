@@ -29,7 +29,8 @@ extension FiatEndpoints on BinanceSpot {
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(FiatTransferHistory.fromMap(r.right)));
+    ).then((r) =>
+        r.isLeft ? Left(r.left) : Right(FiatTransferHistory.fromMap(r.right)));
   }
 
   /// Get fiat payments history
@@ -54,6 +55,7 @@ extension FiatEndpoints on BinanceSpot {
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft ? Left(r.left) : Right(FiatPaymentHistory.fromMap(r.right)));
+    ).then((r) =>
+        r.isLeft ? Left(r.left) : Right(FiatPaymentHistory.fromMap(r.right)));
   }
 }

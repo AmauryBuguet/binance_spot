@@ -42,7 +42,8 @@ class WsAccountUpdate {
       : eventType = m['e'],
         eventTime = m['E'],
         lastUpdateTime = m['u'],
-        balances = (m['B'] as List<dynamic>).map((e) => Balance.fromMap(e)).toList();
+        balances =
+            (m['B'] as List<dynamic>).map((e) => Balance.fromMap(e)).toList();
 }
 
 class WsBalanceUpdate {
@@ -160,7 +161,9 @@ class WsListOrderStatus {
         listRejectReason = m['r'],
         listClientOrderId = m['C'],
         transactionTime = m['T'],
-        orders = (m['O'] as List<dynamic>).map((e) => WsOcoOrder.fromMap(e)).toList();
+        orders = (m['O'] as List<dynamic>)
+            .map((e) => WsOcoOrder.fromMap(e))
+            .toList();
 }
 
 class DepthOrder {

@@ -42,7 +42,10 @@ extension OcoOrderStatusExt on OcoOrderStatus {
 }
 
 extension EnumSpotExt on String {
-  SymbolStatus toSymbolStatusEnum() => SymbolStatus.values.firstWhere((s) => describeEnum(s) == this);
-  OcoStatus toOcoStatusEnum() => OcoStatus.values.firstWhere((s) => describeEnum(s) == this);
-  OcoOrderStatus toOcoOrderStatusEnum() => OcoOrderStatus.values.firstWhere((s) => describeEnum(s) == this);
+  SymbolStatus toSymbolStatusEnum() =>
+      SymbolStatus.values.firstWhere((s) => describeEnum(s) == this);
+  OcoStatus toOcoStatusEnum() =>
+      OcoStatus.values.firstWhere((s) => describeEnum(s) == this);
+  OcoOrderStatus toOcoOrderStatusEnum() =>
+      OcoOrderStatus.values.firstWhere((s) => describeEnum(s) == this);
 }

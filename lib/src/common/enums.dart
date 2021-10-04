@@ -71,8 +71,12 @@ extension OrderStatusExt on OrderStatus {
 
 extension EnumExt on String {
   Side toSideEnum() => Side.values.firstWhere((s) => describeEnum(s) == this);
-  Interval toIntervalEnum() => Interval.values.firstWhere((s) => describeEnum(s).split("_").last == this);
-  TimeInForce toTimeInForceEnum() => TimeInForce.values.firstWhere((s) => describeEnum(s) == this);
-  OrderType toOrderTypeEnum() => OrderType.values.firstWhere((s) => describeEnum(s) == this);
-  OrderStatus toOrderStatusEnum() => OrderStatus.values.firstWhere((s) => describeEnum(s) == this);
+  Interval toIntervalEnum() => Interval.values
+      .firstWhere((s) => describeEnum(s).split("_").last == this);
+  TimeInForce toTimeInForceEnum() =>
+      TimeInForce.values.firstWhere((s) => describeEnum(s) == this);
+  OrderType toOrderTypeEnum() =>
+      OrderType.values.firstWhere((s) => describeEnum(s) == this);
+  OrderStatus toOrderStatusEnum() =>
+      OrderStatus.values.firstWhere((s) => describeEnum(s) == this);
 }
