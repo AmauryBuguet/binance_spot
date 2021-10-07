@@ -105,18 +105,18 @@ class Kline {
   double takerBuyBaseAssetVolume;
   double takerBuyQuoteAssetVolume;
 
-  Kline.fromMap(Map m)
-      : timestamp = m['name0'],
-        open = double.parse(m['name1']),
-        high = double.parse(m['name2']),
-        low = double.parse(m['name3']),
-        close = double.parse(m['name4']),
-        volume = double.parse(m['name5']),
-        closeTimestamp = m['name6'],
-        quoteAssetVolume = double.parse(m['name7']),
-        tradeNumber = m['name8'],
-        takerBuyBaseAssetVolume = double.parse(m['name9']),
-        takerBuyQuoteAssetVolume = double.parse(m['name10']);
+  Kline.fromList(List l)
+      : timestamp = l[0],
+        open = double.parse(l[1]),
+        high = double.parse(l[2]),
+        low = double.parse(l[3]),
+        close = double.parse(l[4]),
+        volume = double.parse(l[5]),
+        closeTimestamp = l[6],
+        quoteAssetVolume = double.parse(l[7]),
+        tradeNumber = l[8],
+        takerBuyBaseAssetVolume = double.parse(l[9]),
+        takerBuyQuoteAssetVolume = double.parse(l[10]);
 }
 
 class AveragePrice {

@@ -140,7 +140,7 @@ extension MarketEndpoints on BinanceSpot {
       params: params,
     ).then((r) => r.isLeft
         ? Left(r.left)
-        : Right(List<Kline>.from(r.right.map((e) => Kline.fromMap(e)))));
+        : Right(List<Kline>.from(r.right.map((e) => Kline.fromList(e)))));
   }
 
   /// Current average price for a symbol.
