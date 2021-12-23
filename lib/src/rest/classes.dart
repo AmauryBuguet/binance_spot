@@ -39,18 +39,28 @@ class Symbol {
         permissions = m['permissions'].cast<String>();
 }
 
+class Filter {
+  String type;
+  Map<String, dynamic> data;
+  Filter.fromMap(m)
+      : type = m["filterType"],
+        data = m;
+}
+
 class ExchangeInfo {
   String timezone;
   int serverTime;
   List<dynamic> rateLimits;
-  List<dynamic> exchangeFilters;
+  List<Filter> exchangeFilters;
   List<Symbol> symbols;
 
   ExchangeInfo.fromMap(Map m)
       : timezone = m['timezone'],
         serverTime = m['serverTime'],
         rateLimits = m['rateLimits'],
-        exchangeFilters = m['exchangeFilters'],
+        exchangeFilters = (m['exchangeFilters'] as List<dynamic>)
+            .map((e) => Filter.fromMap(e))
+            .toList(),
         symbols = (m['symbols'] as List<dynamic>)
             .map((e) => Symbol.fromMap(e))
             .toList();
