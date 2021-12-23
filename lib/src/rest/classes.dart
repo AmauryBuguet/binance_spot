@@ -16,7 +16,7 @@ class Symbol {
   bool ocoAllowed;
   bool isSpotTradingAllowed;
   bool isMarginTradingAllowed;
-  List<dynamic> filters;
+  List<Filter> filters;
   List<String> permissions;
 
   Symbol.fromMap(Map m)
@@ -35,7 +35,9 @@ class Symbol {
         ocoAllowed = m['ocoAllowed'],
         isSpotTradingAllowed = m['isSpotTradingAllowed'],
         isMarginTradingAllowed = m['isMarginTradingAllowed'],
-        filters = m['filters'],
+        filters = (m['filters'] as List<dynamic>)
+            .map((e) => Filter.fromMap(e))
+            .toList(),
         permissions = m['permissions'].cast<String>();
 }
 
