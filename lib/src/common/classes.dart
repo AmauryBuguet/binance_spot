@@ -6,9 +6,9 @@ class Balance {
   double locked;
 
   Balance.fromMap(Map m)
-      : asset = m['asset'],
-        free = double.parse(m['free']),
-        locked = double.parse(m['locked']);
+      : asset = m['asset'] ?? m['a'],
+        free = double.parse(m['free'] ?? m['f']),
+        locked = double.parse(m['locked'] ?? m['l']);
 }
 
 class AggTrade {
