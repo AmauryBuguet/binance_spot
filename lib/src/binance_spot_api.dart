@@ -28,8 +28,10 @@ class BinanceSpot {
   BinanceSpot({
     String? key,
     String? secret,
-  })  : _apiKey = key,
-        _apiSecret = secret;
+  }) {
+    _apiKey = key;
+    _apiSecret = secret;
+  }
 
   /// Call this function if you keep getting an error about server time
   Future<bool> syncWithServerTime() async {
