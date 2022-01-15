@@ -1396,7 +1396,7 @@ class ApiRestrictions {
   bool enableFutures;
   bool enableMargin;
   bool enableSpotAndMarginTrading;
-  int tradingAuthorityExpirationTime;
+  int? tradingAuthorityExpirationTime;
 
   ApiRestrictions.fromMap(Map m)
       : ipRestrict = m['ipRestrict'],
