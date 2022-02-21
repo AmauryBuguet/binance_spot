@@ -28,7 +28,7 @@ extension SubaccountEndpoints on BinanceSpot {
       timestampRequired: true,
       keyRequired: true,
       signatureRequired: true,
-    ).then((r) => r.isRight ? r.right['email'] : r.left);
+    ).then((r) => r.isLeft ? Left(r.left) : Right(r.right['email']));
   }
 
   /// Get list of all subaccounts
