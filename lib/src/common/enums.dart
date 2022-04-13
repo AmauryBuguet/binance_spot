@@ -44,6 +44,7 @@ extension IntervalExt on Interval {
 enum OrderType {
   LIMIT,
   MARKET,
+  STOP,
   STOP_LOSS,
   STOP_LOSS_LIMIT,
   TAKE_PROFIT,
