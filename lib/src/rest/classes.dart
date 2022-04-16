@@ -563,8 +563,8 @@ class SubaccountBalance {
 
   SubaccountBalance.fromMap(Map m)
       : asset = m['asset'],
-        free = m['free'],
-        locked = m['locked'];
+        free = m['free'] as double,
+        locked = m['locked'] as double;
 }
 
 class SubaccountBalances {
