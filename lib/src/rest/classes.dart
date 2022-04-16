@@ -556,12 +556,23 @@ class SubaccountFuturesTransfer {
         txnId = double.parse(m['txnId']);
 }
 
+class SubaccountBalance {
+  String asset;
+  double free;
+  double locked;
+
+  SubaccountBalance.fromMap(Map m)
+      : asset = m['asset'],
+        free = m['free'],
+        locked = m['locked'];
+}
+
 class SubaccountBalances {
-  List<Balance> balances;
+  List<SubaccountBalance> balances;
 
   SubaccountBalances.fromMap(Map m)
       : balances = (m['balances'] as List<dynamic>)
-            .map((e) => Balance.fromMap(e))
+            .map((e) => SubaccountBalance.fromMap(e))
             .toList();
 }
 
