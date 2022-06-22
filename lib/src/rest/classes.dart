@@ -237,7 +237,7 @@ class Order {
         timeInForce = (m['timeInForce'] as String).toTimeInForceEnum(),
         type = (m['type'] as String).toOrderTypeEnum(),
         side = (m['side'] as String).toSideEnum(),
-        stopPrice = m['stopPrice'];
+        stopPrice = double.parse(m['price']);
 }
 
 class CanceledOrder {
