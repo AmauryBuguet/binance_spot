@@ -257,7 +257,7 @@ class CanceledOrder {
 
   CanceledOrder.fromMap(Map m)
       : symbol = m['symbol'],
-        origClientOrderId = m['origClientOrderId'],
+        origClientOrderId = m['origClientOrderId'] ?? "",
         orderId = m['orderId'],
         orderListId = m['orderListId'],
         clientOrderId = m['clientOrderId'],
