@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 
 enum Side {
-  BUY,
-  SELL,
+  buy,
+  sell,
 }
 
 extension SideExt on Side {
@@ -10,27 +10,27 @@ extension SideExt on Side {
 }
 
 enum Interval {
-  INTERVAL_1m,
-  INTERVAL_3m,
-  INTERVAL_5m,
-  INTERVAL_15m,
-  INTERVAL_30m,
-  INTERVAL_1h,
-  INTERVAL_2h,
-  INTERVAL_4h,
-  INTERVAL_6h,
-  INTERVAL_8h,
-  INTERVAL_12h,
-  INTERVAL_1d,
-  INTERVAL_3d,
-  INTERVAL_1w,
-  INTERVAL_1M,
+  oneMinute,
+  threeMinutes,
+  fiveMinutes,
+  fifteenMinutes,
+  thirtyMinutes,
+  oneHour,
+  twoHours,
+  fourHours,
+  sixHours,
+  eightHours,
+  twelveHours,
+  oneDay,
+  threeDays,
+  oneWeek,
+  oneMonth,
 }
 
 enum TimeInForce {
-  GTC,
-  IOC,
-  FOK,
+  gtc,
+  ioc,
+  fok,
 }
 
 extension TimeInForceExt on TimeInForce {
@@ -42,14 +42,14 @@ extension IntervalExt on Interval {
 }
 
 enum OrderType {
-  LIMIT,
-  MARKET,
-  STOP,
-  STOP_LOSS,
-  STOP_LOSS_LIMIT,
-  TAKE_PROFIT,
-  TAKE_PROFIT_LIMIT,
-  LIMIT_MAKER,
+  limit,
+  market,
+  stop,
+  stopLoss,
+  stopLossLimit,
+  takeProfit,
+  takeProfitLimit,
+  limitMaker,
 }
 
 extension OrderTypeExt on OrderType {
@@ -57,13 +57,13 @@ extension OrderTypeExt on OrderType {
 }
 
 enum OrderStatus {
-  NEW,
-  PARTIALLY_FILLED,
-  FILLED,
-  CANCELED,
-  PENDING_CANCEL,
-  REJECTED,
-  EXPIRED,
+  newOrder,
+  partiallyFilled,
+  filled,
+  canceled,
+  pendingCancel,
+  rejected,
+  expired,
 }
 
 extension OrderStatusExt on OrderStatus {
@@ -72,12 +72,8 @@ extension OrderStatusExt on OrderStatus {
 
 extension EnumExt on String {
   Side toSideEnum() => Side.values.firstWhere((s) => describeEnum(s) == this);
-  Interval toIntervalEnum() => Interval.values
-      .firstWhere((s) => describeEnum(s).split("_").last == this);
-  TimeInForce toTimeInForceEnum() =>
-      TimeInForce.values.firstWhere((s) => describeEnum(s) == this);
-  OrderType toOrderTypeEnum() =>
-      OrderType.values.firstWhere((s) => describeEnum(s) == this);
-  OrderStatus toOrderStatusEnum() =>
-      OrderStatus.values.firstWhere((s) => describeEnum(s) == this);
+  Interval toIntervalEnum() => Interval.values.firstWhere((s) => describeEnum(s).split("_").last == this);
+  TimeInForce toTimeInForceEnum() => TimeInForce.values.firstWhere((s) => describeEnum(s) == this);
+  OrderType toOrderTypeEnum() => OrderType.values.firstWhere((s) => describeEnum(s) == this);
+  OrderStatus toOrderStatusEnum() => OrderStatus.values.firstWhere((s) => describeEnum(s) == this);
 }

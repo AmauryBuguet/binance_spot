@@ -23,7 +23,7 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/virtualSubAccount',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       timestampRequired: true,
       keyRequired: true,
@@ -47,18 +47,16 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/list',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) =>
-        r.isLeft ? Left(r.left) : Right(SubaccountList.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(SubaccountList.fromMap(r.right)));
   }
 
   /// Get spot assets transfer history for all subaccounts
-  Future<Either<String, List<SubaccountTransfer>>>
-      querySubaccountSpotAssetTransferHistory({
+  Future<Either<String, List<SubaccountTransfer>>> querySubaccountSpotAssetTransferHistory({
     String? fromEmail,
     String? toEmail,
     int? startTime,
@@ -77,20 +75,16 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/sub/transfer/history',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(List<SubaccountTransfer>.from(
-            r.right.map((e) => SubaccountTransfer.fromMap(e)))));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(List<SubaccountTransfer>.from(r.right.map((e) => SubaccountTransfer.fromMap(e)))));
   }
 
   /// Get futures assets transfer history for all subaccounts
-  Future<Either<String, SubaccountFuturesTransferHistory>>
-      querySubaccountFuturesAssetTransferHistory({
+  Future<Either<String, SubaccountFuturesTransferHistory>> querySubaccountFuturesAssetTransferHistory({
     required String email,
     String? futuresType,
     int? startTime,
@@ -110,19 +104,16 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/futures/internalTransfer',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(SubaccountFuturesTransferHistory.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(SubaccountFuturesTransferHistory.fromMap(r.right)));
   }
 
   /// Request a futures asset transfer to a subaccount
-  Future<Either<String, SubaccountFuturesTransfer>>
-      subaccountFuturesAssetTransfer({
+  Future<Either<String, SubaccountFuturesTransfer>> subaccountFuturesAssetTransfer({
     required String fromEmail,
     required String toEmail,
     required int futuresType,
@@ -140,14 +131,12 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/futures/internalTransfer',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(SubaccountFuturesTransfer.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(SubaccountFuturesTransfer.fromMap(r.right)));
   }
 
   /// Get list of assets on a subaccount
@@ -161,18 +150,16 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v3/sub-account/assets',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) =>
-        r.isLeft ? Left(r.left) : Right(SubaccountBalances.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(SubaccountBalances.fromMap(r.right)));
   }
 
   /// Get BTC valued asset summary of subaccouts.
-  Future<Either<String, SubaccountSpotAssetsSummary>>
-      querySubaccountSpotAssetsSummary({
+  Future<Either<String, SubaccountSpotAssetsSummary>> querySubaccountSpotAssetsSummary({
     String? email,
     int? page,
     int? size,
@@ -185,14 +172,12 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/spotSummary',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(SubaccountSpotAssetsSummary.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(SubaccountSpotAssetsSummary.fromMap(r.right)));
   }
 
   /// Get Sub-account spot Deposit Address (For Master Account)
@@ -210,13 +195,12 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/capital/deposit/subAddress',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) =>
-        r.isLeft ? Left(r.left) : Right(DepositAddress.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(DepositAddress.fromMap(r.right)));
   }
 
   /// Fetch Sub-account Deposit History (For Master Account)
@@ -242,19 +226,16 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/capital/deposit/subHisrec',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(List<Deposit>.from(r.right.map((e) => Deposit.fromMap(e)))));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(List<Deposit>.from(r.right.map((e) => Deposit.fromMap(e)))));
   }
 
   /// Get Sub-account's Status on Margin/Futures (For Master Account)
-  Future<Either<String, List<SubaccountStatus>>>
-      getSubaccountsStatusonMarginFutures({
+  Future<Either<String, List<SubaccountStatus>>> getSubaccountsStatusonMarginFutures({
     String? email,
     int? recvWindow,
   }) {
@@ -263,15 +244,12 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/status',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(List<SubaccountStatus>.from(
-            r.right.map((e) => SubaccountStatus.fromMap(e)))));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(List<SubaccountStatus>.from(r.right.map((e) => SubaccountStatus.fromMap(e)))));
   }
 
   /// Enable Margin for Sub-account (For Master Account)
@@ -285,7 +263,7 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/margin/enable',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
@@ -304,33 +282,28 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/margin/account',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(SubaccountMarginDetail.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(SubaccountMarginDetail.fromMap(r.right)));
   }
 
   /// Get Summary of Sub-account's Margin Account (For Master Account)
-  Future<Either<String, AllSubaccountMarginSummary>>
-      getSubaccountsMarginSummary({
+  Future<Either<String, AllSubaccountMarginSummary>> getSubaccountsMarginSummary({
     int? recvWindow,
   }) {
     Map<String, String> params = {};
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/margin/accountSummary',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
       params: params,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(AllSubaccountMarginSummary.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(AllSubaccountMarginSummary.fromMap(r.right)));
   }
 
   /// Enable Margin for Sub-account (For Master Account)
@@ -344,7 +317,7 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/futures/enable',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
@@ -363,38 +336,32 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/futures/account',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(SubaccountFuturesDetail.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(SubaccountFuturesDetail.fromMap(r.right)));
   }
 
   /// Get Summary of Sub-account's Futures Account (For Master Account)
-  Future<Either<String, AllSubaccountFuturesSummary>>
-      getSubaccountsFuturesSummary({
+  Future<Either<String, AllSubaccountFuturesSummary>> getSubaccountsFuturesSummary({
     int? recvWindow,
   }) {
     Map<String, String> params = {};
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/futures/accountSummary',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
       params: params,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(AllSubaccountFuturesSummary.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(AllSubaccountFuturesSummary.fromMap(r.right)));
   }
 
   /// Get Futures Position-Risk of Sub-account (For Master Account)
-  Future<Either<String, List<SubaccountFuturesPositionRisk>>>
-      getSubaccountFuturesPostionRisk({
+  Future<Either<String, List<SubaccountFuturesPositionRisk>>> getSubaccountFuturesPostionRisk({
     required String email,
     int? recvWindow,
   }) {
@@ -404,15 +371,13 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/futures/positionRisk',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(List<SubaccountFuturesPositionRisk>.from(
-            r.right.map((e) => SubaccountFuturesPositionRisk.fromMap(e)))));
+    ).then((r) =>
+        r.isLeft ? Left(r.left) : Right(List<SubaccountFuturesPositionRisk>.from(r.right.map((e) => SubaccountFuturesPositionRisk.fromMap(e)))));
   }
 
   /// Futures Transfer for Sub-account (For Master Account)
@@ -432,7 +397,7 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/futures/transfer',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
@@ -455,7 +420,7 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/transfer/subToSub',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
@@ -476,7 +441,7 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/transfer/subToMaster',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
@@ -485,8 +450,7 @@ extension SubaccountEndpoints on BinanceSpot {
   }
 
   /// Sub-account Transfer History (For Sub-account)
-  Future<Either<String, List<SubaccountTransferData>>>
-      subaccountTransferHistory({
+  Future<Either<String, List<SubaccountTransferData>>> subaccountTransferHistory({
     String? asset,
     int? type,
     int? startTime,
@@ -503,15 +467,12 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/transfer/subUserHistory',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(List<SubaccountTransferData>.from(
-            r.right.map((e) => SubaccountTransferData.fromMap(e)))));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(List<SubaccountTransferData>.from(r.right.map((e) => SubaccountTransferData.fromMap(e)))));
   }
 
   /// Universal Transfer (For Master Account)
@@ -540,7 +501,7 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/universalTransfer',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
@@ -553,8 +514,7 @@ extension SubaccountEndpoints on BinanceSpot {
   /// fromEmail and toEmail cannot be sent at the same time.
   /// Return fromEmail equal master account email by default.
   /// Only get the latest history of past 30 days.
-  Future<Either<String, List<SubaccountUniversalTransfer>>>
-      subaccountsQueryUniversalTransferHistory({
+  Future<Either<String, List<SubaccountUniversalTransfer>>> subaccountsQueryUniversalTransferHistory({
     String? fromEmail,
     String? toEmail,
     int? startTime,
@@ -573,15 +533,13 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/universalTransfer',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(List<SubaccountUniversalTransfer>.from(
-            r.right.map((e) => SubaccountUniversalTransfer.fromMap(e)))));
+    ).then(
+        (r) => r.isLeft ? Left(r.left) : Right(List<SubaccountUniversalTransfer>.from(r.right.map((e) => SubaccountUniversalTransfer.fromMap(e)))));
   }
 
   /// Enable Leverage Token for Sub-account (For Master Account)
@@ -597,7 +555,7 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/sub-account/blvt/enable',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
@@ -620,7 +578,7 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/managed-subaccount/deposit',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
@@ -629,8 +587,7 @@ extension SubaccountEndpoints on BinanceSpot {
   }
 
   /// Query managed sub-account asset details（For Investor Master Account）
-  Future<Either<String, List<ManagedSubaccountAsset>>>
-      queryManagedSubaccountAssets({
+  Future<Either<String, List<ManagedSubaccountAsset>>> queryManagedSubaccountAssets({
     required String email,
     int? recvWindow,
   }) {
@@ -640,15 +597,12 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/managed-subaccount/asset',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(List<ManagedSubaccountAsset>.from(
-            r.right.map((e) => ManagedSubaccountAsset.fromMap(e)))));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(List<ManagedSubaccountAsset>.from(r.right.map((e) => ManagedSubaccountAsset.fromMap(e)))));
   }
 
   /// Withdraw assets from the managed sub-account（For Investor Master Account）
@@ -668,7 +622,7 @@ extension SubaccountEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/managed-subaccount/withdraw',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,

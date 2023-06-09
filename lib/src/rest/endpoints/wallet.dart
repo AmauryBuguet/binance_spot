@@ -11,9 +11,8 @@ extension WalletEndpoints on BinanceSpot {
   Future<Either<String, SystemStatus>> systemStatus() {
     return sendRequest(
       path: 'sapi/v1/system/status',
-      type: RequestType.GET,
-    ).then(
-        (r) => r.isLeft ? Left(r.left) : Right(SystemStatus.fromMap(r.right)));
+      type: RequestType.getRequest,
+    ).then((r) => r.isLeft ? Left(r.left) : Right(SystemStatus.fromMap(r.right)));
   }
 
   /// Get information of coins (available for deposit and withdraw) for user.
@@ -24,14 +23,12 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/capital/config/getall',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
       params: params,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(List<CoinData>.from(r.right.map((e) => CoinData.fromMap(e)))));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(List<CoinData>.from(r.right.map((e) => CoinData.fromMap(e)))));
   }
 
   /// Get daily account snapshots taken every day at 23:59:59
@@ -54,7 +51,7 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/accountSnapshot',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
@@ -86,7 +83,7 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/account/disableFastWithdrawSwitch',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
@@ -106,7 +103,7 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/account/enableFastWithdrawSwitch',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
@@ -136,13 +133,14 @@ extension WalletEndpoints on BinanceSpot {
     if (withdrawOrderId != null) params['withdrawOrderId'] = withdrawOrderId;
     if (network != null) params['network'] = network;
     if (addressTag != null) params['addressTag'] = addressTag;
-    if (transactionFeeFlag != null)
+    if (transactionFeeFlag != null) {
       params['transactionFeeFlag'] = transactionFeeFlag.toString();
+    }
     if (name != null) params['name'] = name;
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/capital/withdraw/apply',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
@@ -171,14 +169,12 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/capital/deposit/hisrec',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(List<Deposit>.from(r.right.map((e) => Deposit.fromMap(e)))));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(List<Deposit>.from(r.right.map((e) => Deposit.fromMap(e)))));
   }
 
   /// Fetch withdraw history.
@@ -204,14 +200,12 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/capital/withdraw/history',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(List<Withdraw>.from(r.right.map((e) => Withdraw.fromMap(e)))));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(List<Withdraw>.from(r.right.map((e) => Withdraw.fromMap(e)))));
   }
 
   /// Fetch deposit address with network.
@@ -227,13 +221,12 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/capital/deposit/address',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) =>
-        r.isLeft ? Left(r.left) : Right(DepositAddress.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(DepositAddress.fromMap(r.right)));
   }
 
   /// Fetch account status detail.
@@ -244,7 +237,7 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/account/status',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
@@ -260,14 +253,12 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/account/apiTradingStatus',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(AccountApiTradingData.fromMap(r.right["data"])));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(AccountApiTradingData.fromMap(r.right["data"])));
   }
 
   /// Crypto dust conversion to BNB history
@@ -282,7 +273,7 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/asset/dribblet',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
@@ -295,9 +286,9 @@ extension WalletEndpoints on BinanceSpot {
     required List<String> assets,
     int? recvWindow,
   }) {
-    if (assets.isEmpty)
-      return Future.delayed(const Duration(milliseconds: 1))
-          .then((value) => const Left("Empty asset array"));
+    if (assets.isEmpty) {
+      return Future.delayed(const Duration(milliseconds: 1)).then((value) => const Left("Empty asset array"));
+    }
     String asset = "asset=${assets.first}";
     if (assets.length > 1) {
       for (int i = 1; i < assets.length; ++i) {
@@ -310,13 +301,12 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/asset/dust',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) =>
-        r.isLeft ? Left(r.left) : Right(DustConversion.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(DustConversion.fromMap(r.right)));
   }
 
   /// Query asset dividend record.
@@ -335,13 +325,12 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/asset/assetDividend',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) =>
-        r.isLeft ? Left(r.left) : Right(DividendRecord.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(DividendRecord.fromMap(r.right)));
   }
 
   /// Fetch details of assets supported on Binance.
@@ -354,15 +343,12 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/asset/assetDetail',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(List<AssetDetail>.from(
-            (r.right as Map).entries.map((e) => AssetDetail.fromMapEntry(e)))));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(List<AssetDetail>.from((r.right as Map).entries.map((e) => AssetDetail.fromMapEntry(e)))));
   }
 
   /// Fetch trade fee for an asset
@@ -375,14 +361,12 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/asset/tradeFee',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(List<TradeFee>.from(r.right.map((e) => TradeFee.fromMap(e)))));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(List<TradeFee>.from(r.right.map((e) => TradeFee.fromMap(e)))));
   }
 
   /// You need to enable Permits Universal Transfer option for the api key which requests this endpoint.
@@ -404,7 +388,7 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/asset/transfer',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
@@ -413,8 +397,7 @@ extension WalletEndpoints on BinanceSpot {
   }
 
   /// Query User Universal Transfer History
-  Future<Either<String, UniversalTransferHistory>>
-      queryUniversalTransferHistory({
+  Future<Either<String, UniversalTransferHistory>> queryUniversalTransferHistory({
     required String type,
     int? startTime,
     int? endTime,
@@ -436,14 +419,12 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/asset/transfer',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(UniversalTransferHistory.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(UniversalTransferHistory.fromMap(r.right)));
   }
 
   /// Currently supports querying the following business assets：Binance Pay, Binance Card, Binance Gift Card, Stock Token
@@ -454,20 +435,18 @@ extension WalletEndpoints on BinanceSpot {
   }) {
     Map<String, String> params = {};
     if (asset != null) params['asset'] = asset;
-    if (needBtcValuation != null)
+    if (needBtcValuation != null) {
       params['needBtcValuation'] = needBtcValuation.toString();
+    }
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/asset/get-funding-asset',
-      type: RequestType.POST,
+      type: RequestType.postRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) => r.isLeft
-        ? Left(r.left)
-        : Right(List<FundingAsset>.from(
-            r.right.map((e) => FundingAsset.fromMap(e)))));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(List<FundingAsset>.from(r.right.map((e) => FundingAsset.fromMap(e)))));
   }
 
   /// Get API Key Permissions
@@ -478,12 +457,11 @@ extension WalletEndpoints on BinanceSpot {
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();
     return sendRequest(
       path: 'sapi/v1/account/apiRestrictions',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) =>
-        r.isLeft ? Left(r.left) : Right(ApiRestrictions.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(ApiRestrictions.fromMap(r.right)));
   }
 }

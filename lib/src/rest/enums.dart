@@ -1,20 +1,20 @@
 import 'package:flutter/foundation.dart';
 
 enum RequestType {
-  GET,
-  POST,
-  DELETE,
-  PUT,
+  getRequest,
+  postRequest,
+  deleteRequest,
+  putRequest,
 }
 
 enum SymbolStatus {
-  PRE_TRADING,
-  TRADING,
-  POST_TRADING,
-  END_OF_DAY,
-  HALT,
-  AUCTION_MATCH,
-  BREAK,
+  preTrading,
+  trading,
+  postTrading,
+  endOfDay,
+  halt,
+  auctionMatch,
+  breakStatus,
 }
 
 extension SymbolStatusExt on SymbolStatus {
@@ -22,9 +22,9 @@ extension SymbolStatusExt on SymbolStatus {
 }
 
 enum OcoStatus {
-  RESPONSE,
-  EXEC_STARTED,
-  ALL_DONE,
+  response,
+  execStarted,
+  allDone,
 }
 
 extension OcoStatusExt on OcoStatus {
@@ -32,9 +32,9 @@ extension OcoStatusExt on OcoStatus {
 }
 
 enum OcoOrderStatus {
-  EXECUTING,
-  ALL_DONE,
-  REJECT,
+  executing,
+  allDone,
+  reject,
 }
 
 extension OcoOrderStatusExt on OcoOrderStatus {
@@ -42,10 +42,7 @@ extension OcoOrderStatusExt on OcoOrderStatus {
 }
 
 extension EnumSpotExt on String {
-  SymbolStatus toSymbolStatusEnum() =>
-      SymbolStatus.values.firstWhere((s) => describeEnum(s) == this);
-  OcoStatus toOcoStatusEnum() =>
-      OcoStatus.values.firstWhere((s) => describeEnum(s) == this);
-  OcoOrderStatus toOcoOrderStatusEnum() =>
-      OcoOrderStatus.values.firstWhere((s) => describeEnum(s) == this);
+  SymbolStatus toSymbolStatusEnum() => SymbolStatus.values.firstWhere((s) => describeEnum(s) == this);
+  OcoStatus toOcoStatusEnum() => OcoStatus.values.firstWhere((s) => describeEnum(s) == this);
+  OcoOrderStatus toOcoOrderStatusEnum() => OcoOrderStatus.values.firstWhere((s) => describeEnum(s) == this);
 }

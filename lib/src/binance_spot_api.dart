@@ -37,7 +37,7 @@ class BinanceSpot {
   Future<bool> syncWithServerTime() async {
     var response = await sendRequest(
       path: '$prefix/time',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
     );
     if (response.isRight) {
       int serverTime = response.right['serverTime'];
@@ -58,10 +58,9 @@ class BinanceSpot {
     Map<String, String>? params,
   }) async {
     params ??= {};
-    if (timestampRequired)
-      params['timestamp'] =
-          (DateTime.now().millisecondsSinceEpoch - timestampDifference)
-              .toString();
+    if (timestampRequired) {
+      params['timestamp'] = (DateTime.now().millisecondsSinceEpoch - timestampDifference).toString();
+    }
 
     if (signatureRequired) {
       if (_apiSecret == null) {
@@ -90,25 +89,25 @@ class BinanceSpot {
     http.Response? response;
 
     switch (type) {
-      case RequestType.GET:
+      case RequestType.getRequest:
         response = await http.get(
           uri,
           headers: keyRequired ? header : null,
         );
         break;
-      case RequestType.POST:
+      case RequestType.postRequest:
         response = await http.post(
           uri,
           headers: header,
         );
         break;
-      case RequestType.DELETE:
+      case RequestType.deleteRequest:
         response = await http.delete(
           uri,
           headers: header,
         );
         break;
-      case RequestType.PUT:
+      case RequestType.putRequest:
         response = await http.put(uri);
         break;
       default:
@@ -118,8 +117,7 @@ class BinanceSpot {
 
     if (result is Map) {
       if (result.containsKey("code") && result['code'] != 200) {
-        return Left(
-            "Binance API returned error ${result["code"]} : ${result["msg"]}");
+        return Left("Binance API returned error ${result["code"]} : ${result["msg"]}");
       }
     }
 

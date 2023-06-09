@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
   void startKlineStream() {
     var stream = binanceSpot.klineStream(
       symbol: "BTCUSDT",
-      interval: Interval.INTERVAL_5m,
+      interval: Interval.fiveMinutes,
     );
     klineStreamSub = stream.listen(handleNewKline);
   }
@@ -97,16 +97,13 @@ class _HomePageState extends State<HomePage> {
 
   void handleUserdataEvent(dynamic event) {
     if (event is WsAccountUpdate) {
-      lastEventData =
-          "Account update event : ${event.balances.length} balances updated";
+      lastEventData = "Account update event : ${event.balances.length} balances updated";
     } else if (event is WsBalanceUpdate) {
       lastEventData = "Balance update event : ${event.asset} balance updated";
     } else if (event is WsExecutionReport) {
-      lastEventData =
-          "Execution report event : status is ${event.orderStatus.toStr()}";
+      lastEventData = "Execution report event : status is ${event.orderStatus.toStr()}";
     } else if (event is WsListOrderStatus) {
-      lastEventData =
-          "ListOrder update event : status is ${event.listOrderStatus}";
+      lastEventData = "ListOrder update event : status is ${event.listOrderStatus}";
     } else {
       lastEventData = "Unknown event type : ${event.toString()}";
     }

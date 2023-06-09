@@ -24,13 +24,12 @@ extension FiatEndpoints on BinanceSpot {
     if (rows != null) params['rows'] = rows.toString();
     return sendRequest(
       path: 'sapi/v1/fiat/orders',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) =>
-        r.isLeft ? Left(r.left) : Right(FiatTransferHistory.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(FiatTransferHistory.fromMap(r.right)));
   }
 
   /// Get fiat payments history
@@ -50,12 +49,11 @@ extension FiatEndpoints on BinanceSpot {
     if (rows != null) params['rows'] = rows.toString();
     return sendRequest(
       path: 'sapi/v1/fiat/payments',
-      type: RequestType.GET,
+      type: RequestType.getRequest,
       params: params,
       keyRequired: true,
       signatureRequired: true,
       timestampRequired: true,
-    ).then((r) =>
-        r.isLeft ? Left(r.left) : Right(FiatPaymentHistory.fromMap(r.right)));
+    ).then((r) => r.isLeft ? Left(r.left) : Right(FiatPaymentHistory.fromMap(r.right)));
   }
 }

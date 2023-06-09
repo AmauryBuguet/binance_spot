@@ -11,7 +11,7 @@ extension SpotUserdataStreamEndpoints on BinanceSpot {
   /// If the account has an active listenKey, that listenKey will be returned and its validity will be extended for 60 minutes.
   Future<Either<String, String>> createListenKey() => sendRequest(
         path: 'api/v3/userDataStream',
-        type: RequestType.POST,
+        type: RequestType.postRequest,
         keyRequired: true,
       ).then((r) => r.isRight ? Right(r.right['listenKey']) : Left(r.left));
 
@@ -25,7 +25,7 @@ extension SpotUserdataStreamEndpoints on BinanceSpot {
     Map<String, String> params = {'listenKey': listenKey};
     return sendRequest(
       path: 'api/v3/userDataStream',
-      type: RequestType.PUT,
+      type: RequestType.putRequest,
       keyRequired: true,
       params: params,
     ).then((r) => r.isLeft ? Left(r.left) : const Right(true));
@@ -38,7 +38,7 @@ extension SpotUserdataStreamEndpoints on BinanceSpot {
     Map<String, String> params = {'listenKey': listenKey};
     return sendRequest(
       path: 'api/v3/userDataStream',
-      type: RequestType.DELETE,
+      type: RequestType.deleteRequest,
       keyRequired: true,
       params: params,
     ).then((r) => r.isLeft ? Left(r.left) : const Right(true));
