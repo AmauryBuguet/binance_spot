@@ -59,7 +59,7 @@ class WsKline {
       : startTime = m['t'],
         closeTime = m['T'],
         symbol = m['s'],
-        interval = (m['i'] as String).toIntervalEnum(),
+        interval = Interval.fromString(m['i'] as String),
         firstTradeId = m['f'],
         lastTradeId = m['L'],
         open = double.parse(m['o']),
@@ -185,12 +185,8 @@ class WsPartialOrderBook {
 
   WsPartialOrderBook.fromMap(Map m)
       : lastUpdateId = m['lastUpdateId'],
-        bids = (m['bids'] as List<dynamic>)
-            .map((e) => DepthOrder.fromList(e))
-            .toList(),
-        asks = (m['asks'] as List<dynamic>)
-            .map((e) => DepthOrder.fromList(e))
-            .toList();
+        bids = (m['bids'] as List<dynamic>).map((e) => DepthOrder.fromList(e)).toList(),
+        asks = (m['asks'] as List<dynamic>).map((e) => DepthOrder.fromList(e)).toList();
 }
 
 class WsDiffOrderBook {
@@ -208,10 +204,6 @@ class WsDiffOrderBook {
         symbol = m['s'],
         firstUpdateId = m['U'],
         lastUpdateId = m['u'],
-        bids = (m['b'] as List<dynamic>)
-            .map((e) => DepthOrder.fromList(e))
-            .toList(),
-        asks = (m['a'] as List<dynamic>)
-            .map((e) => DepthOrder.fromList(e))
-            .toList();
+        bids = (m['b'] as List<dynamic>).map((e) => DepthOrder.fromList(e)).toList(),
+        asks = (m['a'] as List<dynamic>).map((e) => DepthOrder.fromList(e)).toList();
 }

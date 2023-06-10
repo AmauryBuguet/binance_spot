@@ -1,79 +1,89 @@
-import 'package:flutter/foundation.dart';
-
 enum Side {
-  buy,
-  sell,
-}
+  buy("BUY"),
+  sell("SELL");
 
-extension SideExt on Side {
-  String toStr() => describeEnum(this);
+  const Side(this.str);
+
+  static Side fromString(String str) {
+    return Side.values.firstWhere((e) => e.str == str);
+  }
+
+  final String str;
 }
 
 enum Interval {
-  oneMinute,
-  threeMinutes,
-  fiveMinutes,
-  fifteenMinutes,
-  thirtyMinutes,
-  oneHour,
-  twoHours,
-  fourHours,
-  sixHours,
-  eightHours,
-  twelveHours,
-  oneDay,
-  threeDays,
-  oneWeek,
-  oneMonth,
+  oneMinute("1s"),
+  threeMinutes("3m"),
+  fiveMinutes("5m"),
+  fifteenMinutes("15m"),
+  thirtyMinutes("30m"),
+  oneHour("1h"),
+  twoHours("2h"),
+  fourHours("4h"),
+  sixHours("6h"),
+  eightHours("8h"),
+  twelveHours("12h"),
+  oneDay("1d"),
+  threeDays("3d"),
+  oneWeek("1w"),
+  oneMonth("1M");
+
+  const Interval(this.str);
+
+  static Interval fromString(String str) {
+    return Interval.values.firstWhere((e) => e.str == str);
+  }
+
+  final String str;
 }
 
 enum TimeInForce {
-  gtc,
-  ioc,
-  fok,
-}
+  gtc("GTC"),
+  ioc("IOC"),
+  fok("FOK");
 
-extension TimeInForceExt on TimeInForce {
-  String toStr() => describeEnum(this);
-}
+  const TimeInForce(this.str);
 
-extension IntervalExt on Interval {
-  String toStr() => describeEnum(this).split("_").last;
+  static TimeInForce fromString(String str) {
+    return TimeInForce.values.firstWhere((e) => e.str == str);
+  }
+
+  final String str;
 }
 
 enum OrderType {
-  limit,
-  market,
-  stop,
-  stopLoss,
-  stopLossLimit,
-  takeProfit,
-  takeProfitLimit,
-  limitMaker,
-}
+  limit("LIMIT"),
+  market("MARKET"),
+  stopLoss("STOP_LOSS"),
+  stopLossLimit("STOP_LOSS_LIMIT"),
+  takeProfit("TAKE_PROFIT"),
+  takeProfitLimit("TAKE_PROFIT_LIMIT"),
+  limitMaker("LIMIT_MAKER");
 
-extension OrderTypeExt on OrderType {
-  String toStr() => describeEnum(this);
+  const OrderType(this.str);
+
+  static OrderType fromString(String str) {
+    return OrderType.values.firstWhere((e) => e.str == str);
+  }
+
+  final String str;
 }
 
 enum OrderStatus {
-  newOrder,
-  partiallyFilled,
-  filled,
-  canceled,
-  pendingCancel,
-  rejected,
-  expired,
-}
+  newOrder("NEW"),
+  partiallyFilled("PARTIALLY_FILLED"),
+  filled("FILLED"),
+  canceled("CANCELED"),
+  pendingCancel("PENDING_CANCEL"),
+  rejected("REJECTED"),
+  expired("EXPIRED"),
+  expiredInMatch("EXPIRED_IN_MATCH");
 
-extension OrderStatusExt on OrderStatus {
-  String toStr() => describeEnum(this);
-}
+  const OrderStatus(this.str);
 
-extension EnumExt on String {
-  Side toSideEnum() => Side.values.firstWhere((s) => describeEnum(s) == this);
-  Interval toIntervalEnum() => Interval.values.firstWhere((s) => describeEnum(s).split("_").last == this);
-  TimeInForce toTimeInForceEnum() => TimeInForce.values.firstWhere((s) => describeEnum(s) == this);
-  OrderType toOrderTypeEnum() => OrderType.values.firstWhere((s) => describeEnum(s) == this);
-  OrderStatus toOrderStatusEnum() => OrderStatus.values.firstWhere((s) => describeEnum(s) == this);
+  static OrderStatus fromString(String str) {
+    return OrderStatus.values.firstWhere((e) => e.str == str);
+  }
+
+  final String str;
 }

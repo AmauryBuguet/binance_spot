@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 enum RequestType {
   getRequest,
   postRequest,
@@ -8,41 +6,47 @@ enum RequestType {
 }
 
 enum SymbolStatus {
-  preTrading,
-  trading,
-  postTrading,
-  endOfDay,
-  halt,
-  auctionMatch,
-  breakStatus,
-}
+  preTrading("PRE_TRADING"),
+  trading("TRADING"),
+  postTrading("POST_TRADING"),
+  endOfDay("END_OF_DAY"),
+  halt("HALT"),
+  auctionMatch("AUCTION_MATCH"),
+  breakStatus("BREAK");
 
-extension SymbolStatusExt on SymbolStatus {
-  String toStr() => describeEnum(this);
+  const SymbolStatus(this.str);
+
+  static SymbolStatus fromString(String str) {
+    return SymbolStatus.values.firstWhere((e) => e.str == str);
+  }
+
+  final String str;
 }
 
 enum OcoStatus {
-  response,
-  execStarted,
-  allDone,
-}
+  response("RESPONSE"),
+  execStarted("EXEC_STARTED"),
+  allDone("ALL_DONE");
 
-extension OcoStatusExt on OcoStatus {
-  String toStr() => describeEnum(this);
+  const OcoStatus(this.str);
+
+  static OcoStatus fromString(String str) {
+    return OcoStatus.values.firstWhere((e) => e.str == str);
+  }
+
+  final String str;
 }
 
 enum OcoOrderStatus {
-  executing,
-  allDone,
-  reject,
-}
+  executing("EXECUTING"),
+  allDone("ALL_DONE"),
+  reject("REJECT");
 
-extension OcoOrderStatusExt on OcoOrderStatus {
-  String toStr() => describeEnum(this);
-}
+  const OcoOrderStatus(this.str);
 
-extension EnumSpotExt on String {
-  SymbolStatus toSymbolStatusEnum() => SymbolStatus.values.firstWhere((s) => describeEnum(s) == this);
-  OcoStatus toOcoStatusEnum() => OcoStatus.values.firstWhere((s) => describeEnum(s) == this);
-  OcoOrderStatus toOcoOrderStatusEnum() => OcoOrderStatus.values.firstWhere((s) => describeEnum(s) == this);
+  static OcoOrderStatus fromString(String str) {
+    return OcoOrderStatus.values.firstWhere((e) => e.str == str);
+  }
+
+  final String str;
 }

@@ -42,8 +42,7 @@ class WsAccountUpdate {
       : eventType = m['e'],
         eventTime = m['E'],
         lastUpdateTime = m['u'],
-        balances =
-            (m['B'] as List<dynamic>).map((e) => Balance.fromMap(e)).toList();
+        balances = (m['B'] as List<dynamic>).map((e) => Balance.fromMap(e)).toList();
 }
 
 class WsBalanceUpdate {
@@ -98,9 +97,9 @@ class WsExecutionReport {
         eventTime = m['E'],
         symbol = m['s'],
         clientOrderId = m['c'],
-        side = (m['S'] as String).toSideEnum(),
-        orderType = (m['o'] as String).toOrderTypeEnum(),
-        timeInForce = (m['f'] as String).toTimeInForceEnum(),
+        side = Side.fromString(m['S'] as String),
+        orderType = OrderType.fromString(m['o'] as String),
+        timeInForce = TimeInForce.fromString(m['f'] as String),
         qty = double.parse(m['q']),
         price = double.parse(m['p']),
         stopPrice = double.parse(m['P']),
@@ -108,7 +107,7 @@ class WsExecutionReport {
         orderListID = m['g'],
         origClientOrderId = m['C'],
         executionType = m['x'],
-        orderStatus = (m['X'] as String).toOrderStatusEnum(),
+        orderStatus = OrderStatus.fromString(m['X'] as String),
         orderRejectReason = m['r'],
         orderId = m['i'],
         lastExecutedQty = double.parse(m['l']),
@@ -161,9 +160,7 @@ class WsListOrderStatus {
         listRejectReason = m['r'],
         listClientOrderId = m['C'],
         transactionTime = m['T'],
-        orders = (m['O'] as List<dynamic>)
-            .map((e) => WsOcoOrder.fromMap(e))
-            .toList();
+        orders = (m['O'] as List<dynamic>).map((e) => WsOcoOrder.fromMap(e)).toList();
 }
 
 class DepthOrder {

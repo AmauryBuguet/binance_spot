@@ -21,23 +21,18 @@ class Symbol {
 
   Symbol.fromMap(Map m)
       : symbol = m['symbol'],
-        status = (m['status'] as String).toSymbolStatusEnum(),
+        status = SymbolStatus.fromString(m['status'] as String),
         baseAsset = m['baseAsset'],
         baseAssetPrecision = m['baseAssetPrecision'],
         quoteAsset = m['quoteAsset'],
         quotePrecision = m['quotePrecision'],
         quoteAssetPrecision = m['quoteAssetPrecision'],
-        orderTypes = (m['orderTypes'] as List<dynamic>)
-            .cast<String>()
-            .map((String e) => e.toOrderTypeEnum())
-            .toList(),
+        orderTypes = (m['orderTypes'] as List<dynamic>).cast<String>().map((String e) => OrderType.fromString(e)).toList(),
         icebergAllowed = m['icebergAllowed'],
         ocoAllowed = m['ocoAllowed'],
         isSpotTradingAllowed = m['isSpotTradingAllowed'],
         isMarginTradingAllowed = m['isMarginTradingAllowed'],
-        filters = (m['filters'] as List<dynamic>)
-            .map((e) => Filter.fromMap(e))
-            .toList(),
+        filters = (m['filters'] as List<dynamic>).map((e) => Filter.fromMap(e)).toList(),
         permissions = m['permissions'].cast<String>();
 }
 
@@ -60,12 +55,8 @@ class ExchangeInfo {
       : timezone = m['timezone'],
         serverTime = m['serverTime'],
         rateLimits = m['rateLimits'],
-        exchangeFilters = (m['exchangeFilters'] as List<dynamic>)
-            .map((e) => Filter.fromMap(e))
-            .toList(),
-        symbols = (m['symbols'] as List<dynamic>)
-            .map((e) => Symbol.fromMap(e))
-            .toList();
+        exchangeFilters = (m['exchangeFilters'] as List<dynamic>).map((e) => Filter.fromMap(e)).toList(),
+        symbols = (m['symbols'] as List<dynamic>).map((e) => Symbol.fromMap(e)).toList();
 }
 
 class OrderBook {
@@ -79,12 +70,8 @@ class OrderBook {
       : lastUpdateId = m['lastUpdateId'],
         messageOutputTime = m['E'],
         transactionTime = m['T'],
-        bids = (m['bids'] as List<dynamic>)
-            .map((e) => DepthOrder.fromList(e))
-            .toList(),
-        asks = (m['asks'] as List<dynamic>)
-            .map((e) => DepthOrder.fromList(e))
-            .toList();
+        bids = (m['bids'] as List<dynamic>).map((e) => DepthOrder.fromList(e)).toList(),
+        asks = (m['asks'] as List<dynamic>).map((e) => DepthOrder.fromList(e)).toList();
 }
 
 class Trade {
@@ -233,10 +220,10 @@ class Order {
         origQty = double.parse(m['origQty']),
         executedQty = double.parse(m['executedQty']),
         cummulativeQuoteQty = double.parse(m['cummulativeQuoteQty']),
-        status = (m['status'] as String).toOrderStatusEnum(),
-        timeInForce = (m['timeInForce'] as String).toTimeInForceEnum(),
-        type = (m['type'] as String).toOrderTypeEnum(),
-        side = (m['side'] as String).toSideEnum(),
+        status = OrderStatus.fromString(m['status'] as String),
+        timeInForce = TimeInForce.fromString(m['timeInForce'] as String),
+        type = OrderType.fromString(m['type'] as String),
+        side = Side.fromString(m['side'] as String),
         stopPrice = double.parse(m['price']);
 }
 
@@ -265,10 +252,10 @@ class CanceledOrder {
         origQty = double.parse(m['origQty']),
         executedQty = double.parse(m['executedQty']),
         cummulativeQuoteQty = double.parse(m['cummulativeQuoteQty']),
-        status = (m['status'] as String).toOrderStatusEnum(),
-        timeInForce = (m['timeInForce'] as String).toTimeInForceEnum(),
-        type = (m['type'] as String).toOrderTypeEnum(),
-        side = (m['side'] as String).toSideEnum();
+        status = OrderStatus.fromString(m['status'] as String),
+        timeInForce = TimeInForce.fromString(m['timeInForce'] as String),
+        type = OrderType.fromString(m['type'] as String),
+        side = Side.fromString(m['side'] as String);
 }
 
 class CurrentOrder {
@@ -300,10 +287,10 @@ class CurrentOrder {
         origQty = double.parse(m['origQty']),
         executedQty = double.parse(m['executedQty']),
         cummulativeQuoteQty = double.parse(m['cummulativeQuoteQty']),
-        status = (m['status'] as String).toOrderStatusEnum(),
-        timeInForce = (m['timeInForce'] as String).toTimeInForceEnum(),
-        type = (m['type'] as String).toOrderTypeEnum(),
-        side = (m['side'] as String).toSideEnum(),
+        status = OrderStatus.fromString(m['status'] as String),
+        timeInForce = TimeInForce.fromString(m['timeInForce'] as String),
+        type = OrderType.fromString(m['type'] as String),
+        side = Side.fromString(m['side'] as String),
         stopPrice = double.parse(m['stopPrice']),
         icebergQty = double.parse(m['icebergQty']),
         time = m['time'],
@@ -337,20 +324,13 @@ class OcoOrder {
   OcoOrder.fromMap(Map m)
       : orderListId = m['orderListId'],
         contingencyType = m['contingencyType'],
-        listStatusType = (m['listStatusType'] as String).toOcoStatusEnum(),
-        listOrderStatus =
-            (m['listOrderStatus'] as String).toOcoOrderStatusEnum(),
+        listStatusType = OcoStatus.fromString(m['listStatusType'] as String),
+        listOrderStatus = OcoOrderStatus.fromString(m['listOrderStatus'] as String),
         listClientOrderId = m['listClientOrderId'],
         transactionTime = m['transactionTime'],
         symbol = m['symbol'],
-        orders = (m['orders'] as List<dynamic>)
-            .map((e) => OrderInfo.fromMap(e))
-            .toList(),
-        orderReports = m.containsKey('orderReports')
-            ? (m['orderReports'] as List<dynamic>)
-                .map((e) => Order.fromMap(e))
-                .toList()
-            : [];
+        orders = (m['orders'] as List<dynamic>).map((e) => OrderInfo.fromMap(e)).toList(),
+        orderReports = m.containsKey('orderReports') ? (m['orderReports'] as List<dynamic>).map((e) => Order.fromMap(e)).toList() : [];
 }
 
 class AccountInfo {
@@ -376,9 +356,7 @@ class AccountInfo {
         canDeposit = m['canDeposit'],
         updateTime = m['updateTime'],
         accountType = m['accountType'],
-        balances = (m['balances'] as List<dynamic>)
-            .map((e) => Balance.fromMap(e))
-            .toList(),
+        balances = (m['balances'] as List<dynamic>).map((e) => Balance.fromMap(e)).toList(),
         permissions = m['permissions'].cast<String>();
 }
 
@@ -446,9 +424,7 @@ class FiatTransferHistory {
   FiatTransferHistory.fromMap(Map m)
       : code = double.parse(m['code']),
         message = m['message'],
-        data = (m['data'] as List<dynamic>)
-            .map((e) => FiatTransferData.fromMap(e))
-            .toList(),
+        data = (m['data'] as List<dynamic>).map((e) => FiatTransferData.fromMap(e)).toList(),
         total = m['total'],
         success = m['success'];
 }
@@ -488,9 +464,7 @@ class FiatPaymentHistory {
   FiatPaymentHistory.fromMap(Map m)
       : code = double.parse(m['code']),
         message = m['message'],
-        data = (m['data'] as List<dynamic>)
-            .map((e) => FiatPaymentData.fromMap(e))
-            .toList(),
+        data = (m['data'] as List<dynamic>).map((e) => FiatPaymentData.fromMap(e)).toList(),
         total = m['total'],
         success = m['success'];
 }
@@ -509,10 +483,7 @@ class SubaccountInfo {
 class SubaccountList {
   List<SubaccountInfo> subAccounts;
 
-  SubaccountList.fromMap(Map m)
-      : subAccounts = (m['subAccounts'] as List<dynamic>)
-            .map((e) => SubaccountInfo.fromMap(e))
-            .toList();
+  SubaccountList.fromMap(Map m) : subAccounts = (m['subAccounts'] as List<dynamic>).map((e) => SubaccountInfo.fromMap(e)).toList();
 }
 
 class SubaccountTransfer {
@@ -542,9 +513,7 @@ class SubaccountFuturesTransferHistory {
   SubaccountFuturesTransferHistory.fromMap(Map m)
       : success = m['success'],
         futuresType = m['futuresType'],
-        transfers = (m['transfers'] as List<dynamic>)
-            .map((e) => SubaccountTransfer.fromMap(e))
-            .toList();
+        transfers = (m['transfers'] as List<dynamic>).map((e) => SubaccountTransfer.fromMap(e)).toList();
 }
 
 class SubaccountFuturesTransfer {
@@ -564,18 +533,13 @@ class SubaccountBalance {
   SubaccountBalance.fromMap(Map m)
       : asset = m['asset'],
         free = (m['free'] is int) ? (m["free"] as int).toDouble() : m["free"],
-        locked = (m['locked'] is int)
-            ? (m["locked"] as int).toDouble()
-            : m["locked"];
+        locked = (m['locked'] is int) ? (m["locked"] as int).toDouble() : m["locked"];
 }
 
 class SubaccountBalances {
   List<SubaccountBalance> balances;
 
-  SubaccountBalances.fromMap(Map m)
-      : balances = (m['balances'] as List<dynamic>)
-            .map((e) => SubaccountBalance.fromMap(e))
-            .toList();
+  SubaccountBalances.fromMap(Map m) : balances = (m['balances'] as List<dynamic>).map((e) => SubaccountBalance.fromMap(e)).toList();
 }
 
 class SubaccountBtcValued {
@@ -595,10 +559,7 @@ class SubaccountSpotAssetsSummary {
   SubaccountSpotAssetsSummary.fromMap(Map m)
       : totalCount = m['totalCount'],
         masterAccountTotalAsset = double.parse(m['masterAccountTotalAsset']),
-        spotSubUserAssetBtcVoList =
-            (m['spotSubUserAssetBtcVoList'] as List<dynamic>)
-                .map((e) => SubaccountBtcValued.fromMap(e))
-                .toList();
+        spotSubUserAssetBtcVoList = (m['spotSubUserAssetBtcVoList'] as List<dynamic>).map((e) => SubaccountBtcValued.fromMap(e)).toList();
 }
 
 class DepositAddress {
@@ -703,12 +664,8 @@ class SubaccountMarginDetail {
         totalAssetOfBtc = double.parse(m['totalAssetOfBtc']),
         totalLiabilityOfBtc = double.parse(m['totalLiabilityOfBtc']),
         totalNetAssetOfBtc = double.parse(m['totalNetAssetOfBtc']),
-        marginTradeCoeffVo = (m['marginTradeCoeffVo'] as List<dynamic>)
-            .map((e) => SubaccountMarginCoeff.fromMap(e))
-            .toList(),
-        marginUserAssetVoList = (m['marginUserAssetVoList'] as List<dynamic>)
-            .map((e) => MarginBalance.fromMap(e))
-            .toList();
+        marginTradeCoeffVo = (m['marginTradeCoeffVo'] as List<dynamic>).map((e) => SubaccountMarginCoeff.fromMap(e)).toList(),
+        marginUserAssetVoList = (m['marginUserAssetVoList'] as List<dynamic>).map((e) => MarginBalance.fromMap(e)).toList();
 }
 
 class SubaccountMarginSummary {
@@ -734,9 +691,7 @@ class AllSubaccountMarginSummary {
       : totalAssetOfBtc = double.parse(m['totalAssetOfBtc']),
         totalLiabilityOfBtc = double.parse(m['totalLiabilityOfBtc']),
         totalNetAssetOfBtc = double.parse(m['totalNetAssetOfBtc']),
-        subAccountList = (m['subAccountList'] as List<dynamic>)
-            .map((e) => SubaccountMarginSummary.fromMap(e))
-            .toList();
+        subAccountList = (m['subAccountList'] as List<dynamic>).map((e) => SubaccountMarginSummary.fromMap(e)).toList();
 }
 
 class SubaccountFuturesAsset {
@@ -783,9 +738,7 @@ class SubaccountFuturesDetail {
   SubaccountFuturesDetail.fromMap(Map m)
       : email = m['email'],
         asset = m['asset'],
-        assets = (m['assets'] as List<dynamic>)
-            .map((e) => SubaccountFuturesAsset.fromMap(e))
-            .toList(),
+        assets = (m['assets'] as List<dynamic>).map((e) => SubaccountFuturesAsset.fromMap(e)).toList(),
         canDeposit = m['canDeposit'],
         canTrade = m['canTrade'],
         canWithdraw = m['canWithdraw'],
@@ -794,10 +747,8 @@ class SubaccountFuturesDetail {
         totalInitialMargin = double.parse(m['totalInitialMargin']),
         totalMaintenanceMargin = double.parse(m['totalMaintenanceMargin']),
         totalMarginBalance = double.parse(m['totalMarginBalance']),
-        totalOpenOrderInitialMargin =
-            double.parse(m['totalOpenOrderInitialMargin']),
-        totalPositionInitialMargin =
-            double.parse(m['totalPositionInitialMargin']),
+        totalOpenOrderInitialMargin = double.parse(m['totalOpenOrderInitialMargin']),
+        totalPositionInitialMargin = double.parse(m['totalPositionInitialMargin']),
         totalUnrealizedProfit = double.parse(m['totalUnrealizedProfit']),
         totalWalletBalance = double.parse(m['totalWalletBalance']),
         updateTime = m['updateTime'];
@@ -819,10 +770,8 @@ class SubaccountFuturesSummary {
         totalInitialMargin = double.parse(m['totalInitialMargin']),
         totalMaintenanceMargin = double.parse(m['totalMaintenanceMargin']),
         totalMarginBalance = double.parse(m['totalMarginBalance']),
-        totalOpenOrderInitialMargin =
-            double.parse(m['totalOpenOrderInitialMargin']),
-        totalPositionInitialMargin =
-            double.parse(m['totalPositionInitialMargin']),
+        totalOpenOrderInitialMargin = double.parse(m['totalOpenOrderInitialMargin']),
+        totalPositionInitialMargin = double.parse(m['totalPositionInitialMargin']),
         totalUnrealizedProfit = double.parse(m['totalUnrealizedProfit']),
         totalWalletBalance = double.parse(m['totalWalletBalance']),
         asset = m['asset'];
@@ -843,16 +792,12 @@ class AllSubaccountFuturesSummary {
       : totalInitialMargin = double.parse(m['totalInitialMargin']),
         totalMaintenanceMargin = double.parse(m['totalMaintenanceMargin']),
         totalMarginBalance = double.parse(m['totalMarginBalance']),
-        totalOpenOrderInitialMargin =
-            double.parse(m['totalOpenOrderInitialMargin']),
-        totalPositionInitialMargin =
-            double.parse(m['totalPositionInitialMargin']),
+        totalOpenOrderInitialMargin = double.parse(m['totalOpenOrderInitialMargin']),
+        totalPositionInitialMargin = double.parse(m['totalPositionInitialMargin']),
         totalUnrealizedProfit = double.parse(m['totalUnrealizedProfit']),
         totalWalletBalance = double.parse(m['totalWalletBalance']),
         asset = m['asset'],
-        subAccountList = (m['subAccountList'] as List<dynamic>)
-            .map((e) => SubaccountFuturesSummary.fromMap(e))
-            .toList();
+        subAccountList = (m['subAccountList'] as List<dynamic>).map((e) => SubaccountFuturesSummary.fromMap(e)).toList();
 }
 
 class SubaccountFuturesPositionRisk {
@@ -1019,9 +964,7 @@ class CoinData {
         isLegalMoney = m['isLegalMoney'],
         locked = double.parse(m['locked']),
         name = m['name'],
-        networkList = (m['networkList'] as List<dynamic>)
-            .map((e) => Network.fromMap(e))
-            .toList(),
+        networkList = (m['networkList'] as List<dynamic>).map((e) => Network.fromMap(e)).toList(),
         storage = double.parse(m['storage']),
         trading = m['trading'],
         withdrawAllEnable = m['withdrawAllEnable'],
@@ -1033,9 +976,7 @@ class SnapshotData {
   double totalAssetOfBtc;
 
   SnapshotData.fromMap(Map m)
-      : balances = (m['balances'] as List<dynamic>)
-            .map((e) => Balance.fromMap(e))
-            .toList(),
+      : balances = (m['balances'] as List<dynamic>).map((e) => Balance.fromMap(e)).toList(),
         totalAssetOfBtc = double.parse(m['totalAssetOfBtc']);
 }
 
@@ -1058,9 +999,7 @@ class Snapshots {
   Snapshots.fromMap(Map m)
       : code = m['code'],
         msg = m['msg'],
-        snapshotVos = (m['snapshotVos'] as List<dynamic>)
-            .map((e) => SnapshotVos.fromMap(e))
-            .toList();
+        snapshotVos = (m['snapshotVos'] as List<dynamic>).map((e) => SnapshotVos.fromMap(e)).toList();
 }
 
 class SnapshotMarginData {
@@ -1075,9 +1014,7 @@ class SnapshotMarginData {
         totalAssetOfBtc = double.parse(m['totalAssetOfBtc']),
         totalLiabilityOfBtc = double.parse(m['totalLiabilityOfBtc']),
         totalNetAssetOfBtc = double.parse(m['totalNetAssetOfBtc']),
-        userAssets = (m['userAssets'] as List<dynamic>)
-            .map((e) => MarginBalance.fromMap(e))
-            .toList();
+        userAssets = (m['userAssets'] as List<dynamic>).map((e) => MarginBalance.fromMap(e)).toList();
 }
 
 class SnapshotVosMargin {
@@ -1099,9 +1036,7 @@ class SnapshotsMargin {
   SnapshotsMargin.fromMap(Map m)
       : code = m['code'],
         msg = m['msg'],
-        snapshotVos = (m['snapshotVos'] as List<dynamic>)
-            .map((e) => SnapshotVosMargin.fromMap(e))
-            .toList();
+        snapshotVos = (m['snapshotVos'] as List<dynamic>).map((e) => SnapshotVosMargin.fromMap(e)).toList();
 }
 
 class FuturesBalance {
@@ -1135,12 +1070,8 @@ class SnapshotFuturesData {
   List<FuturesPosition> position;
 
   SnapshotFuturesData.fromMap(Map m)
-      : assets = (m['assets'] as List<dynamic>)
-            .map((e) => FuturesBalance.fromMap(e))
-            .toList(),
-        position = (m['position'] as List<dynamic>)
-            .map((e) => FuturesPosition.fromMap(e))
-            .toList();
+      : assets = (m['assets'] as List<dynamic>).map((e) => FuturesBalance.fromMap(e)).toList(),
+        position = (m['position'] as List<dynamic>).map((e) => FuturesPosition.fromMap(e)).toList();
 }
 
 class SnapshotVosFutures {
@@ -1162,9 +1093,7 @@ class SnapshotsFutures {
   SnapshotsFutures.fromMap(Map m)
       : code = m['code'],
         msg = m['msg'],
-        snapshotVos = (m['snapshotVos'] as List<dynamic>)
-            .map((e) => SnapshotVosFutures.fromMap(e))
-            .toList();
+        snapshotVos = (m['snapshotVos'] as List<dynamic>).map((e) => SnapshotVosFutures.fromMap(e)).toList();
 }
 
 class Withdraw {
@@ -1233,10 +1162,7 @@ class AccountApiTradingData {
       : isLocked = m['isLocked'],
         plannedRecoverTime = m['plannedRecoverTime'],
         triggerCondition = m['triggerCondition'],
-        indicators = (m['indicators'] as Map<String, dynamic>)
-            .entries
-            .map((e) => ApiTradingIndicator.fromEntry(e))
-            .toList(),
+        indicators = (m['indicators'] as Map<String, dynamic>).entries.map((e) => ApiTradingIndicator.fromEntry(e)).toList(),
         updateTime = m['updateTime'];
 }
 
@@ -1269,10 +1195,7 @@ class Dribblet {
         totalTransferedAmount = double.parse(m['totalTransferedAmount']),
         totalServiceChargeAmount = double.parse(m['totalServiceChargeAmount']),
         transId = m['transId'],
-        userAssetDribbletDetails =
-            (m['userAssetDribbletDetails'] as List<dynamic>)
-                .map((e) => DribbletDetail.fromMap(e))
-                .toList();
+        userAssetDribbletDetails = (m['userAssetDribbletDetails'] as List<dynamic>).map((e) => DribbletDetail.fromMap(e)).toList();
 }
 
 class DustLog {
@@ -1281,9 +1204,7 @@ class DustLog {
 
   DustLog.fromMap(Map m)
       : total = m['total'],
-        userAssetDribblets = (m['userAssetDribblets'] as List<dynamic>)
-            .map((e) => Dribblet.fromMap(e))
-            .toList();
+        userAssetDribblets = (m['userAssetDribblets'] as List<dynamic>).map((e) => Dribblet.fromMap(e)).toList();
 }
 
 class DustConversion {
@@ -1294,9 +1215,7 @@ class DustConversion {
   DustConversion.fromMap(Map m)
       : totalServiceCharge = double.parse(m['totalServiceCharge']),
         totalTransfered = double.parse(m['totalTransfered']),
-        transferResult = (m['transferResult'] as List<dynamic>)
-            .map((e) => DribbletDetail.fromMap(e))
-            .toList();
+        transferResult = (m['transferResult'] as List<dynamic>).map((e) => DribbletDetail.fromMap(e)).toList();
 }
 
 class Dividend {
@@ -1319,9 +1238,7 @@ class DividendRecord {
   int total;
 
   DividendRecord.fromMap(Map m)
-      : rows = (m['rows'] as List<dynamic>)
-            .map((e) => Dividend.fromMap(e))
-            .toList(),
+      : rows = (m['rows'] as List<dynamic>).map((e) => Dividend.fromMap(e)).toList(),
         total = m['total'];
 }
 
@@ -1376,9 +1293,7 @@ class UniversalTransferHistory {
 
   UniversalTransferHistory.fromMap(Map m)
       : total = m['total'],
-        rows = (m['rows'] as List<dynamic>)
-            .map((e) => UniversalTransfer.fromMap(e))
-            .toList();
+        rows = (m['rows'] as List<dynamic>).map((e) => UniversalTransfer.fromMap(e)).toList();
 }
 
 class FundingAsset {

@@ -25,10 +25,10 @@ extension TradeEndpoints on BinanceSpot {
   }) {
     Map<String, String> params = {
       'symbol': symbol,
-      'side': side.toStr(),
-      'type': type.toStr(),
+      'side': side.str,
+      'type': type.str,
     };
-    if (timeInForce != null) params['timeInForce'] = timeInForce.toStr();
+    if (timeInForce != null) params['timeInForce'] = timeInForce.str;
     if (quantity != null) params['quantity'] = quantity;
     if (quoteOrderQty != null) params['quoteOrderQty'] = quoteOrderQty;
     if (price != null) params['price'] = price;
@@ -185,7 +185,7 @@ extension TradeEndpoints on BinanceSpot {
   }) {
     Map<String, String> params = {
       'symbol': symbol,
-      'side': side.toStr(),
+      'side': side.str,
       'quantity': quantity,
       'price': price,
       'stopPrice': stopPrice,
@@ -203,7 +203,7 @@ extension TradeEndpoints on BinanceSpot {
     if (stopLimitPrice != null) params['stopLimitPrice'] = stopLimitPrice;
     if (stopIcebergQty != null) params['stopIcebergQty'] = stopIcebergQty;
     if (stopLimitTimeInForce != null) {
-      params['stopLimitTimeInForce'] = stopLimitTimeInForce.toStr();
+      params['stopLimitTimeInForce'] = stopLimitTimeInForce.str;
     }
     if (newOrderRespType != null) params['newOrderRespType'] = newOrderRespType;
     if (recvWindow != null) params['recvWindow'] = recvWindow.toString();

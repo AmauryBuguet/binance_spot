@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
     } else if (event is WsBalanceUpdate) {
       lastEventData = "Balance update event : ${event.asset} balance updated";
     } else if (event is WsExecutionReport) {
-      lastEventData = "Execution report event : status is ${event.orderStatus.toStr()}";
+      lastEventData = "Execution report event : status is ${event.orderStatus.str}";
     } else if (event is WsListOrderStatus) {
       lastEventData = "ListOrder update event : status is ${event.listOrderStatus}";
     } else {

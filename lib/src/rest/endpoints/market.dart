@@ -122,7 +122,7 @@ extension MarketEndpoints on BinanceSpot {
   }) {
     Map<String, String> params = {
       'symbol': symbol,
-      'interval': interval.toStr(),
+      'interval': interval.str,
     };
     if (startTime != null) params['startTime'] = startTime.toString();
     if (endTime != null) params['endTime'] = endTime.toString();
