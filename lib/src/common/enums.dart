@@ -12,7 +12,7 @@ enum Side {
 }
 
 enum Interval {
-  oneMinute("1s"),
+  oneMinute("1m"),
   threeMinutes("3m"),
   fiveMinutes("5m"),
   fifteenMinutes("15m"),
