@@ -113,7 +113,6 @@ class BinanceSpot {
       default:
     }
 
-    print(response?.headers);
     final result = jsonDecode(response!.body);
 
     if (result is Map) {
