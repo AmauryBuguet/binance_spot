@@ -1,7 +1,7 @@
-import 'enums.dart';
-
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import '../common/classes.dart';
 import '../common/enums.dart';
+import 'enums.dart';
 
 class Symbol {
   String symbol;
@@ -103,6 +103,20 @@ class Kline {
   int tradeNumber;
   double takerBuyBaseAssetVolume;
   double takerBuyQuoteAssetVolume;
+
+  Kline({
+    required this.timestamp,
+    required this.open,
+    required this.high,
+    required this.low,
+    required this.close,
+    required this.volume,
+    required this.closeTimestamp,
+    required this.quoteAssetVolume,
+    required this.tradeNumber,
+    required this.takerBuyBaseAssetVolume,
+    required this.takerBuyQuoteAssetVolume,
+  });
 
   Kline.fromList(List l)
       : timestamp = l[0],
